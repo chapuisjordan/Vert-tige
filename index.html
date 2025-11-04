@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Au Jardin Fleuri - Fleuriste</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 1.2rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #e74c3c;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        /* Header with Background Image */
+        header {
+            position: relative;
+            height: 450px;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1487070183336-b863922373d4?w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            z-index: 2;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.3) 0%, rgba(142, 68, 173, 0.3) 100%);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Section */
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Home Section */
+        .home-hero {
+            text-align: center;
+            padding: 3rem 0 2rem;
+        }
+
+        .home-hero h2 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #e74c3c 0%, #8e44ad 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .home-hero p {
+            font-size: 1.3rem;
+            color: #5a6c7d;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: #e74c3c;
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .info-card p {
+            color: #5a6c7d;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Category Title */
+        .category-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            position: relative;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(135deg, #e74c3c 0%, #8e44ad 100%);
+            border-radius: 2px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            border-color: #e74c3c;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .product-description {
+            color: #5a6c7d;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 4rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .contact-info h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+            border-color: #e74c3c;
+        }
+
+        .contact-item h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .contact-item p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #95a5a6;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li a {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-hero h2 {
+                font-size: 2rem;
+            }
+
+            .category-title {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a onclick="showSection('home')">🏠 Accueil</a></li>
+            <li><a onclick="showSection('accessoires')">✨ Accessoires</a></li>
+            <li><a onclick="showSection('bougies')">🕯️ Bougies</a></li>
+            <li><a onclick="showSection('bouquets')">💐 Bouquets</a></li>
+            <li><a onclick="showSection('conscrits')">🎊 Conscrits</a></li>
+            <li><a onclick="showSection('hommage')">🌹 Dernier Hommage</a></li>
+            <li><a onclick="showSection('plantes')">🌿 Plantes</a></li>
+            <li><a onclick="showSection('contact')">📞 Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header with Background Image -->
+    <header>
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <h1>Au Jardin Fleuri</h1>
+            <p>Votre fleuriste de quartier depuis 1998</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="home-hero">
+                <h2>Bienvenue chez Au Jardin Fleuri</h2>
+                <p>Fleuriste artisan passionné, nous créons pour vous des compositions florales uniques pour toutes les occasions de la vie. Chaque bouquet est une œuvre d'art, réalisée avec amour et expertise.</p>
+            </div>
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>🌸 Créations sur mesure</h3>
+                    <p>Chaque arrangement est unique et conçu avec soin selon vos envies et l'occasion. Notre expertise florale au service de vos émotions.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🚚 Livraison locale</h3>
+                    <p>Livraison rapide et soignée dans toute la région. Vos fleurs arrivent fraîches et en parfait état.</p>
+                </div>
+                <div class="info-card">
+                    <h3>💐 Fleurs fraîches</h3>
+                    <p>Approvisionnement quotidien en fleurs de qualité premium. Nous sélectionnons les plus belles variétés pour vous.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessoires -->
+        <section id="accessoires" class="section">
+            <h2 class="category-title">Accessoires</h2>
+            <div class="products-grid" id="products-accessoires"></div>
+        </section>
+
+        <!-- Bougies -->
+        <section id="bougies" class="section">
+            <h2 class="category-title">Bougies</h2>
+            <div class="products-grid" id="products-bougies"></div>
+        </section>
+
+        <!-- Bouquets et Compositions -->
+        <section id="bouquets" class="section">
+            <h2 class="category-title">Bouquets et Compositions</h2>
+            <div class="products-grid" id="products-bouquets"></div>
+        </section>
+
+        <!-- Conscrits -->
+        <section id="conscrits" class="section">
+            <h2 class="category-title">Conscrits</h2>
+            <div class="products-grid" id="products-conscrits"></div>
+        </section>
+
+        <!-- Dernier Hommage -->
+        <section id="hommage" class="section">
+            <h2 class="category-title">Dernier Hommage</h2>
+            <div class="products-grid" id="products-hommage"></div>
+        </section>
+
+        <!-- Plantes Vertes et Fleuries -->
+        <section id="plantes" class="section">
+            <h2 class="category-title">Plantes Vertes et Fleuries</h2>
+            <div class="products-grid" id="products-plantes"></div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <div class="contact-info">
+                <h2>Nous Contacter</h2>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <h3>📍 Adresse</h3>
+                        <p>15 Rue des Fleurs<br>69000 Lyon</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📞 Téléphone</h3>
+                        <p>04 78 00 00 00</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>⏰ Horaires</h3>
+                        <p>Lun-Sam: 9h-19h<br>Dim: 9h-13h</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>👤 Propriétaire</h3>
+                        <p>Marie Dubois</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Données des produits - À remplacer par un chargement depuis products.json
+        // Structure: { type: "categorie", description: "texte", photo: "chemin/vers/photo.jpg" }
+        const productsData = [
+            {
+                type: "bouquets",
+                description: "Bouquet Romantique - Un magnifique bouquet de roses rouges et blanches, parfait pour déclarer votre amour.",
+                photo: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600"
+            },
+            {
+                type: "plantes",
+                description: "Orchidée Blanche - Orchidée élégante en pot, idéale pour décorer votre intérieur avec raffinement.",
+                photo: "https://images.unsplash.com/photo-1527408157477-5aef26c89290?w=600"
+            },
+            {
+                type: "bougies",
+                description: "Bougie Parfumée Lavande - Bougie artisanale au doux parfum de lavande, pour une ambiance relaxante.",
+                photo: "https://images.unsplash.com/photo-1602874801006-90c3e3c6f3e4?w=600"
+            },
+            {
+                type: "bouquets",
+                description: "Composition Champêtre - Mélange de fleurs des champs dans des tons pastel, apportant fraîcheur et naturel.",
+                photo: "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=600"
+            },
+            {
+                type: "plantes",
+                description: "Monstera Deliciosa - Plante d'intérieur tendance, apporte une touche tropicale à votre décoration.",
+                photo: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=600"
+            },
+            {
+                type: "accessoires",
+                description: "Vase en Céramique Artisanale - Vase élégant fait main, parfait pour mettre en valeur vos bouquets.",
+                photo: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=600"
+            },
+            {
+                type: "hommage",
+                description: "Couronne de Deuil - Composition sobre et élégante pour rendre un dernier hommage avec dignité.",
+                photo: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600"
+            },
+            {
+                type: "conscrits",
+                description: "Composition Festive - Arrangement coloré et joyeux pour célébrer les traditions de conscrits.",
+                photo: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=600"
+            }
+        ];
+
+        // Fonction pour charger les produits depuis un fichier JSON
+        async function loadProductsFromJSON() {
+            try {
+                // Décommentez cette ligne et commentez le return en dessous pour charger depuis products.json
+                // const response = await fetch('products.json');
+                // const products = await response.json();
+                // return products;
+                
+                // Pour l'instant, on retourne les données en dur
+                return productsData;
+            } catch (error) {
+                console.error('Erreur lors du chargement des produits:', error);
+                return [];
+            }
+        }
+
+        // Fonction pour extraire le titre de la description
+        function extractTitle(description) {
+            const parts = description.split(' - ');
+            return parts[0] || description.substring(0, 50);
+        }
+
+        // Fonction pour extraire la description sans le titre
+        function extractDescription(description) {
+            const parts = description.split(' - ');
+            return parts.length > 1 ? parts.slice(1).join(' - ') : description;
+        }
+
+        // Afficher les produits par catégorie
+        async function displayProducts() {
+            const products = await loadProductsFromJSON();
+            const categories = ['accessoires', 'bougies', 'bouquets', 'conscrits', 'hommage', 'plantes'];
+            
+            categories.forEach(category => {
+                const container = document.getElementById(`products-${category}`);
+                const categoryProducts = products.filter(p => p.type === category);
+                
+                if (categoryProducts.length === 0) {
+                    container.innerHTML = '<div class="empty-state">Aucun produit dans cette catégorie pour le moment.</div>';
+                } else {
+                    container.innerHTML = categoryProducts.map(product => `
+                        <div class="product-card">
+                            <img src="${product.photo}" alt="${extractTitle(product.description)}" class="product-image" onerror="this.src='https://via.placeholder.com/600x400?text=Image+non+disponible'">
+                            <div class="product-info">
+                                <h3 class="product-title">${extractTitle(product.description)}</h3>
+                                <p class="product-description">${extractDescription(product.description)}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            });
+        }
+
+        // Afficher une section spécifique
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProducts();
+        });
+    </script>
+</body>
+</html>
