@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Au Jardin Fleuri - Fleuriste</title>
+    <title>Vert'tige - Carine Cartillier</title>
     <style>
         * {
             margin: 0;
@@ -27,6 +27,27 @@
             z-index: 1000;
         }
 
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .burger-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1001;
+        }
+
         nav ul {
             list-style: none;
             display: flex;
@@ -34,8 +55,6 @@
             flex-wrap: wrap;
             padding: 0;
             margin: 0;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         nav ul li {
@@ -263,7 +282,7 @@
         .product-image {
             width: 100%;
             height: 280px;
-            object-fit: cover;
+            object-fit: contain;
             transition: transform 0.4s ease;
         }
 
@@ -280,6 +299,16 @@
             color: #2c3e50;
             margin-bottom: 1rem;
             font-weight: 700;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #e74c3c 0%, #8e44ad 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            margin-bottom: 1rem;
         }
 
         .product-description {
@@ -349,21 +378,48 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .burger-menu {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+                transition: right 0.3s ease;
+                padding-top: 4rem;
+                overflow-y: auto;
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li {
+                width: 100%;
+            }
+
+            nav ul li a {
+                padding: 1.2rem 1.5rem;
+                text-align: left;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            nav ul li a::after {
+                display: none;
+            }
+
             header h1 {
                 font-size: 2.5rem;
             }
 
             header p {
                 font-size: 1.1rem;
-            }
-
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li a {
-                padding: 1rem;
-                text-align: center;
             }
 
             .products-grid {
@@ -387,24 +443,29 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <ul>
-            <li><a onclick="showSection('home')">🏠 Accueil</a></li>
-            <li><a onclick="showSection('accessoires')">✨ Accessoires</a></li>
-            <li><a onclick="showSection('bougies')">🕯️ Bougies</a></li>
-            <li><a onclick="showSection('bouquets')">💐 Bouquets</a></li>
-            <li><a onclick="showSection('conscrits')">🎊 Conscrits</a></li>
-            <li><a onclick="showSection('hommage')">🌹 Dernier Hommage</a></li>
-            <li><a onclick="showSection('plantes')">🌿 Plantes</a></li>
-            <li><a onclick="showSection('contact')">📞 Contact</a></li>
-        </ul>
+        <div class="nav-container">
+            <button class="burger-menu" onclick="toggleMenu()" aria-label="Menu">
+                ☰
+            </button>
+            <ul id="navMenu">
+                <li><a onclick="showSection('home'); closeMenu()">🏠 Accueil</a></li>
+                <li><a onclick="showSection('accessoires'); closeMenu()">✨ Accessoires</a></li>
+                <li><a onclick="showSection('bougies'); closeMenu()">🕯️ Bougies</a></li>
+                <li><a onclick="showSection('bouquets'); closeMenu()">💐 Bouquets</a></li>
+                <li><a onclick="showSection('conscrits'); closeMenu()">🎊 Conscrits</a></li>
+                <li><a onclick="showSection('hommage'); closeMenu()">🌹 Dernier Hommage</a></li>
+                <li><a onclick="showSection('plantes'); closeMenu()">🌿 Plantes</a></li>
+                <li><a onclick="showSection('contact'); closeMenu()">📞 Contact</a></li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Header with Background Image -->
     <header>
         <div class="header-overlay"></div>
         <div class="header-content">
-            <h1>Au Jardin Fleuri</h1>
-            <p>Votre fleuriste de quartier depuis 1998</p>
+            <h1>Vert'tige</h1>
+            <p>Carine Cartillier</p>
         </div>
     </header>
 
@@ -412,8 +473,7 @@
         <!-- Home Section -->
         <section id="home" class="section active">
             <div class="home-hero">
-                <h2>Bienvenue chez Au Jardin Fleuri</h2>
-                <p>Fleuriste artisan passionné, nous créons pour vous des compositions florales uniques pour toutes les occasions de la vie. Chaque bouquet est une œuvre d'art, réalisée avec amour et expertise.</p>
+                <h2>Bienvenue chez Vert'tige MONSOLS.</h2>
             </div>
             <div class="info-cards">
                 <div class="info-card">
@@ -474,19 +534,19 @@
                 <div class="contact-details">
                     <div class="contact-item">
                         <h3>📍 Adresse</h3>
-                        <p>15 Rue des Fleurs<br>69000 Lyon</p>
+                        <p>661 rue du Haut Beaujolais à <br>69860 MONSOLS</p>
                     </div>
                     <div class="contact-item">
                         <h3>📞 Téléphone</h3>
-                        <p>04 78 00 00 00</p>
+                        <p> 04 74 04 72 23</p>
                     </div>
                     <div class="contact-item">
                         <h3>⏰ Horaires</h3>
-                        <p>Lun-Sam: 9h-19h<br>Dim: 9h-13h</p>
+                        <p>Lun-Sam: 9h-19h</p>
                     </div>
                     <div class="contact-item">
                         <h3>👤 Propriétaire</h3>
-                        <p>Marie Dubois</p>
+                        <p>Carine Cartillier</p>
                     </div>
                 </div>
             </div>
@@ -495,48 +555,232 @@
 
     <script>
         // Données des produits - À remplacer par un chargement depuis products.json
-        // Structure: { type: "categorie", description: "texte", photo: "chemin/vers/photo.jpg" }
+        // Structure: { type: "categorie", title: "titre", description: "texte", price: "prix", photo: "chemin/vers/photo.jpg" }
         const productsData = [
             {
-                type: "bouquets",
-                description: "Bouquet Romantique - Un magnifique bouquet de roses rouges et blanches, parfait pour déclarer votre amour.",
-                photo: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600"
-            },
-            {
-                type: "plantes",
-                description: "Orchidée Blanche - Orchidée élégante en pot, idéale pour décorer votre intérieur avec raffinement.",
-                photo: "https://images.unsplash.com/photo-1527408157477-5aef26c89290?w=600"
-            },
-            {
-                type: "bougies",
-                description: "Bougie Parfumée Lavande - Bougie artisanale au doux parfum de lavande, pour une ambiance relaxante.",
-                photo: "https://images.unsplash.com/photo-1602874801006-90c3e3c6f3e4?w=600"
-            },
-            {
-                type: "bouquets",
-                description: "Composition Champêtre - Mélange de fleurs des champs dans des tons pastel, apportant fraîcheur et naturel.",
-                photo: "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=600"
-            },
-            {
-                type: "plantes",
-                description: "Monstera Deliciosa - Plante d'intérieur tendance, apporte une touche tropicale à votre décoration.",
-                photo: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=600"
+                type: "accessoires",
+                title: "Bois",
+                description: "Une rose éternelle toute en simplicité sur une rondelle de bois...pour un petit cadeau naturel... Photo non contractuelle, la rondelle de bois et la déco peut varier selon l'arrivage et l'inspiration du jour...",
+                price: "16.00€",
+                photo: "bois.jpg"
             },
             {
                 type: "accessoires",
-                description: "Vase en Céramique Artisanale - Vase élégant fait main, parfait pour mettre en valeur vos bouquets.",
-                photo: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=600"
+                title: "Cartes",
+                description: "",
+                price: "3.80€",
+                photo: "cartes.jpg"
             },
             {
-                type: "hommage",
-                description: "Couronne de Deuil - Composition sobre et élégante pour rendre un dernier hommage avec dignité.",
-                photo: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600"
+                type: "accessoires",
+                title: "Coeur Rouge",
+                description: "Un trés beau coeur !!! Pour exprimer tout l'amour que vous avez pour elle/lui !! Pour une belle preuve d'amitié... d'amour... Photo non contractuelle, le cœur sera réalisé dans le même esprit de couleur, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "30.00€",
+                photo: "coeurRouge.jpg"
+            },
+            {
+                type: "accessoires",
+                title: "Valentine",
+                description: "Une façon originale d'offrir une rose éternelle !!! Valentine se décline en rouge ou en rose... et elle dansera dans votre salon!!! Photo non contractuelle",
+                price: "27.00€",
+                photo: "valentine.jpg"
+            },
+            {
+                type: "bougies",
+                title: "Bambou",
+                description: "Et pourquoi pas ajouter une bougie à votre bouquet pour un cadeau plein de senteur !! Ou offrir une bougie en cadeau unique ou pour vous faire plaisir !! Craquez pour nos bougies parfumées ! Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 21h00 de combustion.(Senteur de bougie et plante pouvant varier selon l'arrivage du moment)(senteur : orange douce, canelle orange, cèdre, thé vert, violette, aloé véra, monoï, rose, fleur de tiaré, morito, pain d'épices, bois de oud, fleur de cerisier, géranium, fleur d'opium...) Bougie " + "bambou" + " - 80g - 21h de combustion. Les contenants en verre, lorsque les bougies sont terminées sont lavables à l'eau chaude et réutilisable !",
+                price: "11.00€",
+                photo: "bambou.jpg"
+            },
+            {
+                type: "bougies",
+                title: "Bougie POT METAL",
+                description: "Et pourquoi pas ajouter une bougie à votre bouquet pour un cadeau plein de senteur !! Ou offrir une bougie en cadeau unique ou pour vous faire plaisir !! Craquez pour nos bougies parfumées ! Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 45h00 de combustion. (Senteur de bougie et plante pouvant varier selon l'arrivage du moment) (senteur : orange douce, canelle orange, cèdre, thé vert, violette, aloé véra, monoï, rose, fleur de tiaré, morito, pain d'épices, bois de oud, fleur de cerisier, géranium, fleur d'opium...) Bougie " + "pot métal" + " - 180g - 45h de combustion. Les contenants en verre, lorsque les bougies sont terminées sont lavables à l'eau chaude et réutilisable !",
+                price: "15.50€",
+                photo: "bougiePotMetal.jpg"
+            },
+            {
+                type: "bougies",
+                title: "Coton",
+                description: "Petite bougie " + "confiture" + " présentée sur un miroir rond avec une mini cactée et une fleur de coton (Photo non contractuelle, senteur de bougie et plante grasse variant selon l'arrivage du moment) *Produit accessible uniquement en retrait boutique. Pour la livraison votre panier global doit atteindre 25,00€. Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 11h à 12h00 de combustion (senteur : cèdre, thé vert, violette, aloé véra, monoï, rose, fleur de tiaré, morito, pain d'épices, bois de oud, fleur de cerisier, géranium, fleur dopium...)",
+                price: "15.50€",
+                photo: "bougiePotMetal.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Amaryllis",
+                description: "Magnifique bouquet rouge et blanc avec ses superbes amaryllis ! Offrez ce bouquet féérique, il sera du plus bel effet sur la table !! Pour savourer les fêtes tout en douceur au coin du feu! Photo non contractuelle, les fleurs peuvent varier selon l'arrivage et le stock mais restera dans le même esprit.",
+                price: "50.00€",
+                photo: "amaryllis.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Amour",
+                description: "Pour déclarer votre flamme ou pour remercier cette composition est faite pour vous ! Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "40.00€",
+                photo: "amour.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Fashion",
+                description: "Notre bouquet lumineux dans les tons fuschia et orange (avec une touche de parme selon l'arrivage) invite la joie dans la maison de votre destinataire ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "40.00€",
+                photo: "fashion.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Flamboyant",
+                description: "Coussin allongé pour un dernier hommage rendu à la personne défunte. Il se compose ici de germinis, roses, chrysanthemes et fleurs de saison dans les tons chaud pour témoigner de votre soutien à la famille. Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différer du visuel présenté qui a valeur indicative.",
+                price: "85.00€",
+                photo: "flamboyant.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Flamme",
+                description: "Envie de faire plaisir ? Cette composition dans les tons chaud est parfaite pour éclairer la journée de votre amie, sœur, chérie… Dites lui que vous tenez à elle. La composition sera réalisé dans le même esprit de couleurs(contenant non contractuel), et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "30.00€",
+                photo: "flamme.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Gâteau floral",
+                description: "En panne d'idée ?? C'est l'anniversaire d'un ou d'une gourmande ?? Nous avons ce qu'il vous faut !! Un gâteau floral...Idée originale qui va séduire à coup sur !! ;) Photo non contractuelle, le gâteau floral sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "40.00€",
+                photo: "gateauFloral.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Gâteau floral",
+                description: "En panne d'idée ?? C'est l'anniversaire d'un ou d'une gourmande ?? Nous avons ce qu'il vous faut !! Un gâteau floral...Idée originale qui va séduire à coup sur !! ;) Photo non contractuelle, le gâteau floral sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "40.00€",
+                photo: "gateauFloral.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Orange",
+                description: "Pour un anniversaire, des 40 ans, ou pour toute occasion...pensez à cette belle composition tons orangés composée d'une bougie 3 mèches senteur melon accompagnée d'une petite composition de fleurs. Le ton chaud de cet arrangement sera pour réchauffer les cœurs, et être une pensée réconfortante quelque soit la saison ou l'occasion. Photo non contractuelle, la composition sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "32.00€",
+                photo: "orange.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Panier fleuri",
+                description: "Un petit panier (fabrication française) tout en légèreté avec des fleurs de saisons pour témoigner toute votre sympathie ou pour fêter un anniversaire…",
+                price: "22.00€",
+                photo: "panierFleuri.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Peps",
+                description: "Bouquet de roses variées et d'alstoemerias apporteront une petite touche de peps , très colorée, dans l'intérieur de votre destinataire ! Quelque soit l'occasion ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "31.00€",
+                photo: "peps.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Rouge",
+                description: "Ce Beau bouquet dans les tons rouge ne sera pas sans vous rappeler Noel ! Il apportera chaleur et douceur au cœur de l'hiver et partagera votre joie d'être avec ceux qui vous sont chers! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "35.00€",
+                photo: "rouge.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Soleil",
+                description: "Belle composition de fleurs piquées dans la mousse, qui amènera le soleil dans votre intérieur !!",
+                price: "50.00€",
+                photo: "soleil.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Tendresse",
+                description: "Coussin rond plein de tendresse pour un dernier hommage à un proche, ami… Composé de fleurette variées dans les camaïeux de roses, ce coussin peut se décliner en différentes teintes, pour exprimer les regrets selon la personnalité du défunt. Photo non contractuelle.",
+                price: "100.00€",
+                photo: "tendresse.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Transparence jaune",
+                description: "Petit présent dans un contenant en verre...pour créer un grand plaisir! Cette rose qui dure longtemps, apportera un rayon de soleil dans votre intérieur !! Photo non contractuelle, le contenant peut varier selon l'arrivage du moment.",
+                price: "13.50€",
+                photo: "transparenceJaune.jpg"
+            },
+            {
+                type: "bouquets",
+                title: "Transparence rouge",
+                description: "Dites le avec une rose éternelle rouge... Petit présent dans un contenant en verre...pour créer un grand plaisir! Cette rose qui dure longtemps, attire la bonne humeur et le positif... Photo non contractuelle, le contenant peut varier selon l'arrivage du moment.",
+                price: "13.50€",
+                photo: "transparenceRouge.jpg"
             },
             {
                 type: "conscrits",
-                description: "Composition Festive - Arrangement coloré et joyeux pour célébrer les traditions de conscrits.",
-                photo: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=600"
-            }
+                title: "Mug*",
+                description: "",
+                price: "20.00",
+                photo: "mug.jpg"
+            },
+            {
+                type: "conscrits",
+                title: "Verre à orangeade",
+                description: "Offrez un verre " + "conscrit" + " personnalisable à la décade de chaque conscrit (ici 80 ans)",
+                price: "20.00",
+                photo: "orangeade.jpg"
+            },
+            {
+                type: "conscrits",
+                title: "Verre à pied",
+                description: "Composition tout en finesse dans un verre à pied " + "conscrit" + " pour fêtez la décade. Déclinable en vert, jaune, orange, rouge... en fonction de l'age",
+                price: "20.00",
+                photo: "pied.jpg"
+            },
+            {
+                type: "hommage",
+                title: "Carte condoleances",
+                description: "Pour témoigner sa tendresse, soutenir les famille endeuillées... une jolie carte, avec son enveloppe assortie Photo non contractuelle, cartes pouvant variées selon l'arrivage.",
+                price: "3.80",
+                photo: "carteCondoleance.jpg"
+            },
+            {
+                type: "hommage",
+                title: "Chagrin",
+                description: "Témoignez de votre sympathie auprès de la famille de la personne défunte avec cette composition de plantes pour un dernier hommage...dans les tons rouge principalement, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries pouvant varier selon l'approvisionnement et la saison).",
+                price: "80.00",
+                photo: "chagrin.jpg"
+            },
+            {
+                type: "hommage",
+                title: "Douleur",
+                description: "Témoignez toute votre tendresse auprès de la famille de la personne défunte avec cette composition de plantes pour un dernier hommage...dans les tons rose principalement, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries pouvant varier selon l'approvisionnement et la saison).",
+                price: "60.00",
+                photo: "douleur.jpg"
+            },
+            {
+                type: "plantes",
+                title: "Anthurium",
+                description: "Belle plante gracieuse, orange ou rouge, selon arrivage du jour (Photo non contractuelle). L'anthurium sublimera votre intérieur !!",
+                price: "33.00",
+                photo: "douleur.jpg"
+            },
+            {
+                type: "plantes",
+                title: "Fougue",
+                description: "Belle plante gracieuse, orange ou rouge, selon arrivage du jour (Photo non contractuelle). L'anthurium sublimera votre intérieur !!",
+                price: "50.00",
+                photo: "douleur.jpg"
+            },
+            {
+                type: "plantes",
+                title: "Jardin fleuri",
+                description: "Quelques plantes vertes et fleuries à dominante de rouge et de blanc pour exprimer votre tendresse, amour à votre cher et tendre…ou pour un anniversaire, une fête…qu'il ou elle pourra admirer puis replanter ! Photo non contractuelle.",
+                price: "48.00",
+                photo: "jardinFleuri.jpg"
+            },
+            {
+                type: "plantes",
+                title: "Orchidée",
+                description: "Elégance et raffinement avec cette belle orchidée blanche et son cache-pot assorti (selon l'arrivage du moment). Photo non contractuelle.",
+                price: "35.00",
+                photo: "orchidee.jpg"
+            },
         ];
 
         // Fonction pour charger les produits depuis un fichier JSON
@@ -581,10 +825,11 @@
                 } else {
                     container.innerHTML = categoryProducts.map(product => `
                         <div class="product-card">
-                            <img src="${product.photo}" alt="${extractTitle(product.description)}" class="product-image" onerror="this.src='https://via.placeholder.com/600x400?text=Image+non+disponible'">
+                            <img src="photos/${product.photo}" alt="${product.title}" class="product-image" onerror="this.src='https://via.placeholder.com/600x400?text=Image+non+disponible'">
                             <div class="product-info">
-                                <h3 class="product-title">${extractTitle(product.description)}</h3>
-                                <p class="product-description">${extractDescription(product.description)}</p>
+                                <h3 class="product-title">${product.title}</h3>
+                                <p class="product-price">${product.price}</p>
+                                <p class="product-description">${product.description}</p>
                             </div>
                         </div>
                     `).join('');
@@ -597,6 +842,28 @@
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
         }
+
+        // Gestion du menu burger
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.remove('active');
+        }
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navMenu = document.getElementById('navMenu');
+            const burgerMenu = document.querySelector('.burger-menu');
+            
+            if (navMenu && !nav.contains(event.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
+        });
 
         // Initialisation au chargement de la page
         document.addEventListener('DOMContentLoaded', () => {
