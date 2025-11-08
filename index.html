@@ -426,6 +426,78 @@
             font-size: 1.2rem;
         }
 
+        /* Section Mariage */
+        .marriage-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .marriage-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .marriage-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .marriage-content {
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .marriage-content h3 {
+            font-size: 1.8rem;
+            color: #2d5a3d;
+            margin-bottom: 1rem;
+        }
+
+        .marriage-content p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .marriage-cta {
+            font-weight: 600;
+            color: #2d5a3d;
+            margin-top: 1.5rem;
+        }
+
+        .marriage-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: #2d5a3d;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+
+        .marriage-button:hover {
+            background: #1f3d29;
+        }
+
+        @media (max-width: 768px) {
+            .marriage-image {
+                height: 250px;
+            }
+            
+            .marriage-content {
+                padding: 1.5rem;
+            }
+            
+            .marriage-content h3 {
+                font-size: 1.4rem;
+            }
+        }
         /* Responsive */
         @media (max-width: 768px) {
             .burger-menu {
@@ -519,6 +591,7 @@
                 <li><a id="nav-hommage" onclick="showSection('hommage'); closeMenu()">✝️ Dernier Hommage</a></li>
                 <li><a id="nav-accessoires" onclick="showSection('accessoires'); closeMenu()">✨ Accessoires</a></li>
                 <li><a id="nav-fetes" onclick="showSection('fetes'); closeMenu()">🎊 Fêtes</a></li>
+                <li><a id="nav-mariage" onclick="showSection('mariage'); closeMenu()">💍 Mariage</a></li>
                 <li><a id="nav-contact" onclick="showSection('contact'); closeMenu()">📞 Contact</a></li>
             </ul>
         </div>
@@ -608,6 +681,22 @@
             <div class="products-grid" id="products-fetes"></div>
         </section>
 
+        <!-- Mariage -->
+        <section id="mariage" class="section">
+            <h2 class="category-title">Mariage</h2>
+            <div class="marriage-container">
+                <div class="marriage-card">
+                    <img src="photos/orchidee.jpg" alt="Décoration florale mariage" class="marriage-image">
+                    <div class="marriage-content">
+                        <h3>Créons ensemble votre décoration florale</h3>
+                        <p>Chaque mariage est unique. Nous concevons des arrangements floraux sur-mesure pour sublimer votre jour J.</p>
+                        <p class="marriage-cta">Pour un devis personnalisé et détaillé, contactez-nous directement en boutique ou par téléphone.</p>
+                        <a onclick="showSection('contact')" class="marriage-button">Nous contacter</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <!-- Contact -->
         <section id="contact" class="section">
             <div class="contact-info">
@@ -647,6 +736,7 @@
                 subtype: "bouquets",
                 title: "Fashion",
                 description: "Notre bouquet lumineux dans les tons fuschia et orange (avec une touche de parme selon l'arrivage) invite la joie dans la maison de votre destinataire ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                fixPrice: false,
                 price: "40.00€",
                 photo: "fashion.jpg"
             },
@@ -655,6 +745,7 @@
                 subtype: "bouquets",
                 title: "Peps",
                 description: "Bouquet de roses variées et d'alstoemerias apporteront une petite touche de peps , très colorée, dans l'intérieur de votre destinataire ! Quelque soit l'occasion ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                fixPrice: false,
                 price: "31.00€",
                 photo: "peps.jpg"
             },
@@ -664,6 +755,7 @@
                 title: "Rouge",
                 description: "Ce Beau bouquet dans les tons rouge ne sera pas sans vous rappeler Noel ! Il apportera chaleur et douceur au cœur de l'hiver et partagera votre joie d'être avec ceux qui vous sont chers! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
                 price: "35.00€",
+                fixPrice: false,
                 photo: "rouge.jpg"
             },
             {
@@ -671,6 +763,7 @@
                 subtype: "compo",
                 title: "Amour",
                 description: "Pour déclarer votre flamme ou pour remercier cette composition est faite pour vous ! Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                fixPrice: false,
                 price: "40.00€",
                 photo: "amour.jpg"
             },
@@ -679,6 +772,7 @@
                 subtype: "compo",
                 title: "Flamme",
                 description: "Envie de faire plaisir ? Cette composition dans les tons chaud est parfaite pour éclairer la journée de votre amie, sœur, chérie… Dites lui que vous tenez à elle. La composition sera réalisé dans le même esprit de couleurs(contenant non contractuel), et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                fixPrice: false,
                 price: "30.00€",
                 photo: "flamme.jpg"
             },
@@ -687,6 +781,7 @@
                 subtype: "compo",
                 title: "Gâteau floral",
                 description: "En panne d'idée ?? C'est l'anniversaire d'un ou d'une gourmande ?? Nous avons ce qu'il vous faut !! Un gâteau floral...Idée originale qui va séduire à coup sur !! ;) Photo non contractuelle, le gâteau floral sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                fixPrice: false,
                 price: "40.00€",
                 photo: "gateauFloral.jpg"
             },
@@ -695,6 +790,7 @@
                 subtype: "compo",
                 title: "Orange",
                 description: "Pour un anniversaire, des 40 ans, ou pour toute occasion...pensez à cette belle composition tons orangés composée d'une bougie 3 mèches senteur melon accompagnée d'une petite composition de fleurs. Le ton chaud de cet arrangement sera pour réchauffer les cœurs, et être une pensée réconfortante quelque soit la saison ou l'occasion. Photo non contractuelle, la composition sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                fixPrice: false,
                 price: "32.00€",
                 photo: "orange.jpg"
             },
@@ -703,6 +799,7 @@
                 subtype: "compo",
                 title: "Panier fleuri",
                 description: "Un petit panier (fabrication française) tout en légèreté avec des fleurs de saisons pour témoigner toute votre sympathie ou pour fêter un anniversaire…",
+                fixPrice: false,
                 price: "22.00€",
                 photo: "panierFleuri.jpg"
             },
@@ -711,6 +808,7 @@
                 subtype: "compo",
                 title: "Soleil",
                 description: "Belle composition de fleurs piquées dans la mousse, qui amènera le soleil dans votre intérieur !!",
+                fixPrice: false,
                 price: "50.00€",
                 photo: "soleil.jpg"
             },
@@ -743,6 +841,14 @@
                 photo: "jardinFleuri.jpg"
             },
             {
+                type: "plante",
+                subtype: "bougie",
+                title: "Coton (bougie)",
+                description: "Bougie pot métal présentée sur un support avec une mini cactée et une fleur de coton. Photo non contractuelle, senteur de bougie et plante grasse variant selon l'arrivage du moment. Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 45h00 de combustion (senteur : géranium, violette, pin, cèdre...)",
+                price: "15.50€",
+                photo: "coton.jpeg"
+            },
+            {
                 type: "rose-eternelle",
                 title: "Transparence jaune",
                 description: "Petit présent dans un contenant en verre...pour créer un grand plaisir! Cette rose qui dure longtemps, apportera un rayon de soleil dans votre intérieur !! Photo non contractuelle, le contenant peut varier selon l'arrivage du moment.",
@@ -773,9 +879,9 @@
             },
             {
                 type: "rose-eternelle",
-                title: "Coeur Rouge",
-                description: "Un trés beau coeur !!! Pour exprimer tout l'amour que vous avez pour elle/lui !! Pour une belle preuve d'amitié... d'amour... Photo non contractuelle, le cœur sera réalisé dans le même esprit de couleur, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                price: "30.00€",
+                title: "Cœur  Rouge",
+                description: "Un trés beau cœur !!! Pour exprimer tout l'amour que vous avez pour elle/lui !! Pour une belle preuve d'amitié... d'amour... Photo non contractuelle, le cœur sera réalisé dans le même esprit de couleur, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+                price: "35.00€",
                 photo: "coeurRouge.jpg"
             },
             {
@@ -851,14 +957,6 @@
                 photo: "bougiePotMetal.jpg"
             },
             {
-                type: 'accessoires',
-                subtype: "bougie",
-                title: "Coton",
-                description: "Petite bougie " + "confiture" + " présentée sur un miroir rond avec une mini cactée et une fleur de coton (Photo non contractuelle, senteur de bougie et plante grasse variant selon l'arrivage du moment) *Produit accessible uniquement en retrait boutique. Pour la livraison votre panier global doit atteindre 25,00€. Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 45h00 de combustion (senteur : géranium, violette, pin, cèdre...)",
-                price: "15.50€",
-                photo: "coton.jpeg"
-            },
-            {
                 type: "fetes",
                 subtype: "conscrits",
                 title: "Verre à pied",
@@ -878,7 +976,7 @@
                 type: "fetes",
                 subtype: "conscrits",
                 title: "Mug",
-                description: "",
+                description: "Offrez un souvenir  personnalisé « Honneur aux conscrits » garni de fleurs coupées pour une touche de couleur assortie à l’age du conscrit ou conscrite pour evoquer  la convivialité et la fete des classes et symboliser le changement de décade…",
                 price: "20.00",
                 photo: "mug.jpg"
             },
@@ -932,7 +1030,7 @@
                             <img src="photos/${product.photo}" alt="${product.title}" class="product-image" onerror="this.src='https://via.placeholder.com/600x400?text=Image+non+disponible'">
                             <div class="product-info">
                                 <h3 class="product-title">${product.title}</h3>
-                                <p class="product-price">${product.price}</p>
+                                <p class="product-price">${product['fixPrice'] === false ? 'À partir de ' : ''}${product.price}</p>
                                 <p class="product-description">${product.description}</p>
                             </div>
                         </div>
