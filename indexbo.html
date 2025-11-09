@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back-office - Boutique Fleurs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+
+        /* Page de connexion */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2d5a3d 0%, #4a8b5f 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            color: #2d5a3d;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            padding-right: 3rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2d5a3d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #1f3d29;
+        }
+
+        .password-hint {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .password-hint code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: #2d5a3d;
+            font-size: 2rem;
+        }
+
+        .add-btn {
+            padding: 0.8rem 1.5rem;
+            background: #2d5a3d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-btn:hover {
+            background: #1f3d29;
+        }
+
+        /* Formulaire */
+        .form-container {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.6rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .image-preview {
+            margin-top: 1rem;
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .form-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-save {
+            background: #2d5a3d;
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Grille de produits */
+        .products-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            background: #e8f5e9;
+            color: #2d5a3d;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        .product-price {
+            color: #2d5a3d;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            max-height: 60px;
+            overflow: hidden;
+        }
+
+        .product-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page de connexion -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <h1>🌸 Back-office</h1>
+            <div class="input-group">
+                <input type="password" id="passwordInput" placeholder="Mot de passe">
+                <button class="toggle-password" onclick="togglePassword()">👁️</button>
+            </div>
+            <div id="errorMessage" class="error-message"></div>
+            <button class="login-btn" onclick="login()">Se connecter</button>
+            <p class="password-hint">
+                Mot de passe par défaut: <code>fleurs2024</code>
+            </p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="header">
+            <h1>🌸 Gestion des produits</h1>
+            <button class="add-btn" onclick="showAddForm()">
+                ➕ Ajouter un produit
+            </button>
+        </div>
+
+        <div id="loadingMessage" class="loading"></div>
+
+        <!-- Formulaire -->
+        <div id="formContainer" class="form-container">
+            <h2 id="formTitle">Nouveau produit</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Catégorie *</label>
+                    <select id="productType" onchange="updateSubtypes()">
+                        <option value="fleurs">Fleurs</option>
+                        <option value="plante">Plantes</option>
+                        <option value="rose-eternelle">Roses Éternelles</option>
+                        <option value="hommage">Dernier Hommage</option>
+                        <option value="accessoires">Accessoires</option>
+                        <option value="fetes">Fêtes</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="subtypeGroup">
+                    <label>Sous-catégorie</label>
+                    <select id="productSubtype">
+                        <option value="">Aucune</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label>Titre *</label>
+                    <input type="text" id="productTitle" placeholder="Nom du produit">
+                </div>
+
+                <div class="form-group full">
+                    <label>Description</label>
+                    <textarea id="productDescription" rows="4" placeholder="Description du produit"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Prix *</label>
+                    <input type="text" id="productPrice" placeholder="40.00€">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="productFixPrice" checked>
+                    <label for="productFixPrice">Prix fixe</label>
+                </div>
+
+                <div class="form-group full">
+                    <label>Image (max 2MB)</label>
+                    <input type="file" id="productImage" accept="image/*" onchange="previewImage()">
+                    <img id="imagePreview" class="image-preview" style="display: none;">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-save" onclick="saveProduct()">💾 Enregistrer</button>
+                <button class="btn btn-cancel" onclick="hideForm()">❌ Annuler</button>
+            </div>
+        </div>
+
+        <!-- Liste des produits -->
+        <div id="productsGrid" class="products-grid"></div>
+        <div id="emptyState" class="empty-state" style="display: none;">
+            Aucun produit. Commencez par en ajouter un ! 🌺
+        </div>
+    </div>
+
+    <script>
+        const CATEGORIES = {
+            fleurs: { label: 'Fleurs', subtypes: ['bouquets', 'compo'] },
+            plante: { label: 'Plantes', subtypes: [] },
+            'rose-eternelle': { label: 'Roses Éternelles', subtypes: [] },
+            hommage: { label: 'Dernier Hommage', subtypes: ['fleurs-coupees', 'plantes'] },
+            accessoires: { label: 'Accessoires', subtypes: ['cartes', 'bougie'] },
+            fetes: { label: 'Fêtes', subtypes: ['conscrits', 'noel'] }
+        };
+
+        const ADMIN_HASH = '943a5d409655935ed7d66c2870f3bdb8dd029d2b5198eb202dce7ea565ceafb5';
+        let currentProducts = [];
+        let editingProductId = null;
+
+        // Hash password
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        // Toggle password visibility
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const btn = document.querySelector('.toggle-password');
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }
+        }
+
+        // Login
+        async function login() {
+            const password = document.getElementById('passwordInput').value;
+            const hash = await hashPassword(password);
+            console.log('HASH : ', hash);
+            console.log('HASH 2 : ', ADMIN_HASH);
+
+            if (hash === ADMIN_HASH) {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                loadProducts();
+            } else {
+                document.getElementById('errorMessage').textContent = 'Mot de passe incorrect';
+            }
+        }
+
+        // Enter key on password field
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('passwordInput')?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') login();
+            });
+        });
+
+        // Load products
+        async function loadProducts() {
+            document.getElementById('loadingMessage').textContent = 'Chargement...';
+            try {
+                const result = await window.storage.list('product:', true);
+                if (result && result.keys) {
+                    const products = await Promise.all(
+                        result.keys.map(async (key) => {
+                            try {
+                                const data = await window.storage.get(key, true);
+                                return data ? JSON.parse(data.value) : null;
+                            } catch {
+                                return null;
+                            }
+                        })
+                    );
+                    currentProducts = products.filter(p => p !== null);
+                } else {
+                    currentProducts = [];
+                }
+            } catch (err) {
+                console.log('Aucun produit trouvé');
+                currentProducts = [];
+            }
+            document.getElementById('loadingMessage').textContent = '';
+            renderProducts();
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const empty = document.getElementById('emptyState');
+
+            if (currentProducts.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            grid.innerHTML = currentProducts.map(product => `
+                <div class="product-card">
+                    ${product.photo ? `<img src="${product.photo}" alt="${product.title}" class="product-image">` : ''}
+                    <div class="product-content">
+                        <span class="product-category">
+                            ${CATEGORIES[product.type]?.label || product.type}
+                            ${product.subtype ? ` - ${product.subtype}` : ''}
+                        </span>
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-price">
+                            ${!product.fixPrice ? 'À partir de ' : ''}${product.price}
+                        </p>
+                        <p class="product-description">${product.description || ''}</p>
+                        <div class="product-actions">
+                            <button class="btn btn-edit" onclick="editProduct('${product.id}')">
+                                ✏️ Modifier
+                            </button>
+                            <button class="btn btn-delete" onclick="deleteProduct('${product.id}')">
+                                🗑️ Supprimer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show add form
+        function showAddForm() {
+            editingProductId = null;
+            document.getElementById('formTitle').textContent = 'Nouveau produit';
+            document.getElementById('productType').value = 'fleurs';
+            document.getElementById('productSubtype').value = '';
+            document.getElementById('productTitle').value = '';
+            document.getElementById('productDescription').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productFixPrice').checked = true;
+            document.getElementById('productImage').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            updateSubtypes();
+            document.getElementById('formContainer').classList.add('active');
+        }
+
+        // Edit product
+        function editProduct(productId) {
+            const product = currentProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            editingProductId = productId;
+            document.getElementById('formTitle').textContent = 'Modifier le produit';
+            document.getElementById('productType').value = product.type;
+            document.getElementById('productSubtype').value = product.subtype || '';
+            document.getElementById('productTitle').value = product.title;
+            document.getElementById('productDescription').value = product.description || '';
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productFixPrice').checked = product.fixPrice;
+            
+            if (product.photo) {
+                document.getElementById('imagePreview').src = product.photo;
+                document.getElementById('imagePreview').style.display = 'block';
+            }
+            
+            updateSubtypes();
+            document.getElementById('formContainer').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update subtypes
+        function updateSubtypes() {
+            const type = document.getElementById('productType').value;
+            const subtypeSelect = document.getElementById('productSubtype');
+            const subtypes = CATEGORIES[type]?.subtypes || [];
+
+            if (subtypes.length === 0) {
+                document.getElementById('subtypeGroup').style.display = 'none';
+            } else {
+                document.getElementById('subtypeGroup').style.display = 'flex';
+                subtypeSelect.innerHTML = '<option value="">Aucune</option>' +
+                    subtypes.map(sub => `<option value="${sub}">${sub}</option>`).join('');
+            }
+        }
+
+        // Preview image
+        function previewImage() {
+            const file = document.getElementById('productImage').files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Image trop volumineuse (max 2MB)');
+                    document.getElementById('productImage').value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Save product
+        async function saveProduct() {
+            const title = document.getElementById('productTitle').value.trim();
+            const price = document.getElementById('productPrice').value.trim();
+            const type = document.getElementById('productType').value;
+
+            if (!title || !price || !type) {
+                alert('Veuillez remplir les champs obligatoires (titre, prix, catégorie)');
+                return;
+            }
+
+            const product = {
+                id: editingProductId || `product:${Date.now()}`,
+                type: type,
+                subtype: document.getElementById('productSubtype').value,
+                title: title,
+                description: document.getElementById('productDescription').value.trim(),
+                price: price,
+                fixPrice: document.getElementById('productFixPrice').checked,
+                photo: document.getElementById('imagePreview').src || ''
+            };
+
+            document.getElementById('loadingMessage').textContent = 'Enregistrement...';
+            try {
+                await window.storage.set(product.id, JSON.stringify(product), true);
+                await loadProducts();
+                hideForm();
+            } catch (err) {
+                alert('Erreur lors de la sauvegarde: ' + err.message);
+            }
+            document.getElementById('loadingMessage').textContent = '';
+        }
+
+        // Delete product
+        async function deleteProduct(productId) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) return;
+
+            document.getElementById('loadingMessage').textContent = 'Suppression...';
+            try {
+                await window.storage.delete(productId, true);
+                await loadProducts();
+            } catch (err) {
+                alert('Erreur lors de la suppression: ' + err.message);
+            }
+            document.getElementById('loadingMessage').textContent = '';
+        }
+
+        // Hide form
+        function hideForm() {
+            document.getElementById('formContainer').classList.remove('active');
+            editingProductId = null;
+        }
+
+        // Initialize
+        updateSubtypes();
+    </script>
+</body>
+</html>

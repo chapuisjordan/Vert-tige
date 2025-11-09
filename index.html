@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vert'tige - Carine Cartillier</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -730,265 +731,265 @@
 
     <script>
         // Données des produits avec sous-catégories
-        const productsData = [
-            {
-                type: "fleurs",
-                subtype: "bouquets",
-                title: "Fashion",
-                description: "Notre bouquet lumineux dans les tons fuschia et orange (avec une touche de parme selon l'arrivage) invite la joie dans la maison de votre destinataire ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                fixPrice: false,
-                price: "40.00€",
-                photo: "fashion.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "bouquets",
-                title: "Peps",
-                description: "Bouquet de roses variées et d'alstoemerias apporteront une petite touche de peps , très colorée, dans l'intérieur de votre destinataire ! Quelque soit l'occasion ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                fixPrice: false,
-                price: "31.00€",
-                photo: "peps.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "bouquets",
-                title: "Rouge",
-                description: "Ce Beau bouquet dans les tons rouge ne sera pas sans vous rappeler Noel ! Il apportera chaleur et douceur au cœur de l'hiver et partagera votre joie d'être avec ceux qui vous sont chers! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                price: "35.00€",
-                fixPrice: false,
-                photo: "rouge.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "compo",
-                title: "Amour",
-                description: "Pour déclarer votre flamme ou pour remercier cette composition est faite pour vous ! Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                fixPrice: false,
-                price: "40.00€",
-                photo: "amour.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "compo",
-                title: "Flamme",
-                description: "Envie de faire plaisir ? Cette composition dans les tons chaud est parfaite pour éclairer la journée de votre amie, sœur, chérie… Dites lui que vous tenez à elle. La composition sera réalisé dans le même esprit de couleurs(contenant non contractuel), et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                fixPrice: false,
-                price: "30.00€",
-                photo: "flamme.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "compo",
-                title: "Gâteau floral",
-                description: "En panne d'idée ?? C'est l'anniversaire d'un ou d'une gourmande ?? Nous avons ce qu'il vous faut !! Un gâteau floral...Idée originale qui va séduire à coup sur !! ;) Photo non contractuelle, le gâteau floral sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                fixPrice: false,
-                price: "40.00€",
-                photo: "gateauFloral.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "compo",
-                title: "Orange",
-                description: "Pour un anniversaire, des 40 ans, ou pour toute occasion...pensez à cette belle composition tons orangés composée d'une bougie 3 mèches senteur melon accompagnée d'une petite composition de fleurs. Le ton chaud de cet arrangement sera pour réchauffer les cœurs, et être une pensée réconfortante quelque soit la saison ou l'occasion. Photo non contractuelle, la composition sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                fixPrice: false,
-                price: "32.00€",
-                photo: "orange.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "compo",
-                title: "Panier fleuri",
-                description: "Un petit panier (fabrication française) tout en légèreté avec des fleurs de saisons pour témoigner toute votre sympathie ou pour fêter un anniversaire…",
-                fixPrice: false,
-                price: "22.00€",
-                photo: "panierFleuri.jpg"
-            },
-            {
-                type: "fleurs",
-                subtype: "compo",
-                title: "Soleil",
-                description: "Belle composition de fleurs piquées dans la mousse, qui amènera le soleil dans votre intérieur !!",
-                fixPrice: false,
-                price: "50.00€",
-                photo: "soleil.jpg"
-            },
-            {
-                type: "plante",
-                title: "Anthurium",
-                description: "Belle plante gracieuse, orange ou rouge, selon arrivage du jour (Photo non contractuelle). L'anthurium sublimera votre intérieur !!",
-                price: "33.00€",
-                photo: "anthurium.jpg"
-            },
-            {
-                type: "plante",
-                title: "Orchidée",
-                description: "Elégance et raffinement avec cette belle orchidée blanche et son cache-pot assorti (selon l'arrivage du moment). Photo non contractuelle.",
-                price: "35.00€",
-                photo: "orchidee.jpg"
-            },
-            {
-                type: "plante",
-                title: "Fougue",
-                description: "Léger et aérien, cet accord de plantes vertes et fleuries avec une orchidée sublimera votre intérieur ! Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                price: "50.00€",
-                photo: "fougue.jpg"
-            },
-            {
-                type: "plante",
-                title: "Jardin fleuri",
-                description: "Quelques plantes vertes et fleuries à dominante de rouge et de blanc pour exprimer votre tendresse, amour à votre cher et tendre…ou pour un anniversaire, une fête…qu'il ou elle pourra admirer puis replanter ! Photo non contractuelle.",
-                price: "48.00€",
-                photo: "jardinFleuri.jpg"
-            },
-            {
-                type: "plante",
-                subtype: "bougie",
-                title: "Coton (bougie)",
-                description: "Bougie pot métal présentée sur un support avec une mini cactée et une fleur de coton. Photo non contractuelle, senteur de bougie et plante grasse variant selon l'arrivage du moment. Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 45h00 de combustion (senteur : géranium, violette, pin, cèdre...)",
-                price: "15.50€",
-                photo: "coton.jpeg"
-            },
-            {
-                type: "rose-eternelle",
-                title: "Transparence jaune",
-                description: "Petit présent dans un contenant en verre...pour créer un grand plaisir! Cette rose qui dure longtemps, apportera un rayon de soleil dans votre intérieur !! Photo non contractuelle, le contenant peut varier selon l'arrivage du moment.",
-                price: "13.50€",
-                photo: "transparenceJaune.jpg"
-            },
-            {
-                type: "rose-eternelle",
-                title: "Transparence rouge",
-                description: "Dites le avec une rose éternelle rouge... Petit présent dans un contenant en verre...pour créer un grand plaisir! Cette rose qui dure longtemps, attire la bonne humeur et le positif... Photo non contractuelle, le contenant peut varier selon l'arrivage du moment.",
-                price: "13.50€",
-                photo: "transparenceRouge.jpg"
-            },
-            {
-                type: "rose-eternelle",
-                subtype: "Cartes",
-                title: "Bois",
-                description: "Une rose éternelle toute en simplicité sur une rondelle de bois...pour un petit cadeau naturel... Photo non contractuelle, la rondelle de bois et la déco peut varier selon l'arrivage et l'inspiration du jour...",
-                price: "16.00€",
-                photo: "bois.jpg"
-            },
-            {
-                type: "rose-eternelle",
-                title: "Valentine",
-                description: "Une façon originale d'offrir une rose éternelle !!! Valentine se décline en rouge ou en rose... et elle dansera dans votre salon!!! Photo non contractuelle",
-                price: "27.00€",
-                photo: "valentine.jpg"
-            },
-            {
-                type: "rose-eternelle",
-                title: "Cœur  Rouge",
-                description: "Un trés beau cœur !!! Pour exprimer tout l'amour que vous avez pour elle/lui !! Pour une belle preuve d'amitié... d'amour... Photo non contractuelle, le cœur sera réalisé dans le même esprit de couleur, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
-                price: "35.00€",
-                photo: "coeurRouge.jpg"
-            },
-            {
-                type: "hommage",
-                subtype: "fleurs-coupees",
-                title: "Flamboyant",
-                description: "Coussin allongé pour un dernier hommage rendu à la personne défunte. Il se compose ici de germinis, roses, chrysanthemes et fleurs de saison dans les tons chaud pour témoigner de votre soutien à la famille. Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différer du visuel présenté qui a valeur indicative.",
-                price: "85.00€",
-                photo: "flamboyant.jpg"
-            },
-            {
-                type: "hommage",
-                subtype: "fleurs-coupees",
-                title: "Tendresse",
-                description: "Coussin rond plein de tendresse pour un dernier hommage à un proche, ami… Composé de fleurette variées dans les camaïeux de roses, ce coussin peut se décliner en différentes teintes, pour exprimer les regrets selon la personnalité du défunt. Photo non contractuelle.",
-                price: "100.00€",
-                photo: "tendresse.jpg"
-            },
-            {
-                type: "hommage",
-                subtype: "plantes",
-                title: "Mélancolie",
-                description: "Dernier hommage auprès de la famille de la personne défunte avec cette composition de plantes ...colorée, multicolore, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries multicolores, pouvant varier selon l'approvisionnement et la saison).",
-                price: "35.00€",
-                photo: "melancolie.jpg"
-            },
-            {
-                type: "hommage",
-                subtype: "plantes",
-                title: "Douleur",
-                description: "Témoignez toute votre tendresse auprès de la famille de la personne défunte avec cette composition de plantes pour un dernier hommage...dans les tons rose principalement, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries pouvant varier selon l'approvisionnement et la saison).",
-                price: "60.00€",
-                photo: "douleur.jpg"
-            },
-            {
-                type: "hommage",
-                subtype: "plantes",
-                title: "Chagrin",
-                description: "Témoignez de votre sympathie auprès de la famille de la personne défunte avec cette composition de plantes pour un dernier hommage...dans les tons rouge principalement, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries pouvant varier selon l'approvisionnement et la saison).",
-                price: "80.00€",
-                photo: "chagrin.jpg"
-            },
-            {
-                type: "accessoires",
-                subtype: "cartes",
-                title: "Carte condoleances",
-                description: "Pour témoigner sa tendresse, soutenir les famille endeuillées... une jolie carte, avec son enveloppe assortie Photo non contractuelle, cartes pouvant variées selon l'arrivage.",
-                price: "3.80€",
-                photo: "carteCondoleance.jpg"
-            },
-            {
-                type: "accessoires",
-                subtype: "cartes",
-                title: "Carte anniversaire",
-                description: "",
-                price: "3.80€",
-                photo: "cartes.jpg"
-            },
-            {
-                type: 'accessoires',
-                subtype: "bougie",
-                title: "Bambou",
-                description: "Et pourquoi pas ajouter une bougie à votre bouquet pour un cadeau plein de senteur !! Ou offrir une bougie en cadeau unique ou pour vous faire plaisir !! Craquez pour nos bougies parfumées ! Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 21h00 de combustion.(Senteur de bougie et plante pouvant varier selon l'arrivage du moment)(senteur : orange douce, canelle orange, cèdre, thé vert, violette, aloé véra, monoï, rose, fleur de tiaré, morito, pain d'épices, bois de oud, fleur de cerisier, géranium, fleur d'opium...) Bougie " + "bambou" + " - 80g - 21h de combustion. Les contenants en verre, lorsque les bougies sont terminées sont lavables à l'eau chaude et réutilisable !",
-                price: "11.00€",
-                photo: "bambou.jpg"
-            },
-            {
-                type: 'accessoires',
-                subtype: "bougie",
-                title: "Bougie POT METAL",
-                description: "Et pourquoi pas ajouter une bougie à votre bouquet pour un cadeau plein de senteur !! Ou offrir une bougie en cadeau unique ou pour vous faire plaisir !! Craquez pour nos bougies parfumées ! Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 45h00 de combustion. (Senteur de bougie et plante pouvant varier selon l'arrivage du moment) (senteur : orange douce, canelle orange, cèdre, thé vert, violette, aloé véra, monoï, rose, fleur de tiaré, morito, pain d'épices, bois de oud, fleur de cerisier, géranium, fleur d'opium...) Bougie " + "pot métal" + " - 180g - 45h de combustion. Les contenants en verre, lorsque les bougies sont terminées sont lavables à l'eau chaude et réutilisable !",
-                price: "15.50€",
-                photo: "bougiePotMetal.jpg"
-            },
-            {
-                type: "fetes",
-                subtype: "conscrits",
-                title: "Verre à pied",
-                description: "Composition tout en finesse dans un verre à pied " + "conscrit" + " pour fêtez la décade. Déclinable en vert, jaune, orange, rouge... en fonction de l'age",
-                price: "20.00€",
-                photo: "pied.jpg"
-            },
-            {
-                type: "fetes",
-                subtype: "conscrits",
-                title: "Verre à orangeade",
-                description: "Offrez un verre " + "conscrit" + " personnalisable à la décade de chaque conscrit (ici 80 ans)",
-                price: "20.00€",
-                photo: "orangeade.jpg"
-            },
-            {
-                type: "fetes",
-                subtype: "conscrits",
-                title: "Mug",
-                description: "Offrez un souvenir  personnalisé « Honneur aux conscrits » garni de fleurs coupées pour une touche de couleur assortie à l’age du conscrit ou conscrite pour evoquer  la convivialité et la fete des classes et symboliser le changement de décade…",
-                price: "20.00€",
-                photo: "mug.jpg"
-            },
-            {
-                type: "fetes",
-                subtype: "noel",
-                title: "Amaryllis",
-                description: "Magnifique bouquet rouge et blanc avec ses superbes amaryllis ! Offrez ce bouquet féérique, il sera du plus bel effet sur la table !! Pour savourer les fêtes tout en douceur au coin du feu! Photo non contractuelle, les fleurs peuvent varier selon l'arrivage et le stock mais restera dans le même esprit.",
-                price: "50.00€",
-                photo: "amaryllis.jpg"
-            },
-        ];
+        const productsData = [];
+        // const productsData = [
+        //     {
+        //         type: "b",
+        //         subtype: "bouquets",
+        //         title: "Fashion",
+        //         description: "Notre bouquet lumineux dans les tons fuschia et orange (avec une touche de parme selon l'arrivage) invite la joie dans la maison de votre destinataire ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         fixPrice: false,
+        //         price: "40.00€",
+        //         photo: "fashion.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "bouquets",
+        //         title: "Peps",
+        //         description: "Bouquet de roses variées et d'alstoemerias apporteront une petite touche de peps , très colorée, dans l'intérieur de votre destinataire ! Quelque soit l'occasion ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         fixPrice: false,
+        //         price: "31.00€",
+        //         photo: "peps.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "bouquets",
+        //         title: "Rouge",
+        //         description: "Ce Beau bouquet dans les tons rouge ne sera pas sans vous rappeler Noel ! Il apportera chaleur et douceur au cœur de l'hiver et partagera votre joie d'être avec ceux qui vous sont chers! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         price: "35.00€",
+        //         fixPrice: false,
+        //         photo: "rouge.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "compo",
+        //         title: "Amour",
+        //         description: "Pour déclarer votre flamme ou pour remercier cette composition est faite pour vous ! Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         fixPrice: false,
+        //         price: "40.00€",
+        //         photo: "amour.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "compo",
+        //         title: "Flamme",
+        //         description: "Envie de faire plaisir ? Cette composition dans les tons chaud est parfaite pour éclairer la journée de votre amie, sœur, chérie… Dites lui que vous tenez à elle. La composition sera réalisé dans le même esprit de couleurs(contenant non contractuel), et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         fixPrice: false,
+        //         price: "30.00€",
+        //         photo: "flamme.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "compo",
+        //         title: "Gâteau floral",
+        //         description: "En panne d'idée ?? C'est l'anniversaire d'un ou d'une gourmande ?? Nous avons ce qu'il vous faut !! Un gâteau floral...Idée originale qui va séduire à coup sur !! ;) Photo non contractuelle, le gâteau floral sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         fixPrice: false,
+        //         price: "40.00€",
+        //         photo: "gateauFloral.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "compo",
+        //         title: "Orange",
+        //         description: "Pour un anniversaire, des 40 ans, ou pour toute occasion...pensez à cette belle composition tons orangés composée d'une bougie 3 mèches senteur melon accompagnée d'une petite composition de fleurs. Le ton chaud de cet arrangement sera pour réchauffer les cœurs, et être une pensée réconfortante quelque soit la saison ou l'occasion. Photo non contractuelle, la composition sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         fixPrice: false,
+        //         price: "32.00€",
+        //         photo: "orange.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "compo",
+        //         title: "Panier fleuri",
+        //         description: "Un petit panier (fabrication française) tout en légèreté avec des fleurs de saisons pour témoigner toute votre sympathie ou pour fêter un anniversaire…",
+        //         fixPrice: false,
+        //         price: "22.00€",
+        //         photo: "panierFleuri.jpg"
+        //     },
+        //     {
+        //         type: "fleurs",
+        //         subtype: "compo",
+        //         title: "Soleil",
+        //         description: "Belle composition de fleurs piquées dans la mousse, qui amènera le soleil dans votre intérieur !!",
+        //         fixPrice: false,
+        //         price: "50.00€",
+        //         photo: "soleil.jpg"
+        //     },
+        //     {
+        //         type: "plante",
+        //         title: "Anthurium",
+        //         description: "Belle plante gracieuse, orange ou rouge, selon arrivage du jour (Photo non contractuelle). L'anthurium sublimera votre intérieur !!",
+        //         price: "33.00€",
+        //         photo: "anthurium.jpg"
+        //     },
+        //     {
+        //         type: "plante",
+        //         title: "Orchidée",
+        //         description: "Elégance et raffinement avec cette belle orchidée blanche et son cache-pot assorti (selon l'arrivage du moment). Photo non contractuelle.",
+        //         price: "35.00€",
+        //         photo: "orchidee.jpg"
+        //     },
+        //     {
+        //         type: "plante",
+        //         title: "Fougue",
+        //         description: "Léger et aérien, cet accord de plantes vertes et fleuries avec une orchidée sublimera votre intérieur ! Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         price: "50.00€",
+        //         photo: "fougue.jpg"
+        //     },
+        //     {
+        //         type: "plante",
+        //         title: "Jardin fleuri",
+        //         description: "Quelques plantes vertes et fleuries à dominante de rouge et de blanc pour exprimer votre tendresse, amour à votre cher et tendre…ou pour un anniversaire, une fête…qu'il ou elle pourra admirer puis replanter ! Photo non contractuelle.",
+        //         price: "48.00€",
+        //         photo: "jardinFleuri.jpg"
+        //     },
+        //     {
+        //         type: "plante",
+        //         title: "Coton (bougie)",
+        //         description: "Bougie pot métal présentée sur un support avec une mini cactée et une fleur de coton. Photo non contractuelle, senteur de bougie et plante grasse variant selon l'arrivage du moment. Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 45h00 de combustion (senteur : géranium, violette, pin, cèdre...)",
+        //         price: "15.50€",
+        //         photo: "coton.jpeg"
+        //     },
+        //     {
+        //         type: "rose-eternelle",
+        //         title: "Transparence jaune",
+        //         description: "Petit présent dans un contenant en verre...pour créer un grand plaisir! Cette rose qui dure longtemps, apportera un rayon de soleil dans votre intérieur !! Photo non contractuelle, le contenant peut varier selon l'arrivage du moment.",
+        //         price: "13.50€",
+        //         photo: "transparenceJaune.jpg"
+        //     },
+        //     {
+        //         type: "rose-eternelle",
+        //         title: "Transparence rouge",
+        //         description: "Dites le avec une rose éternelle rouge... Petit présent dans un contenant en verre...pour créer un grand plaisir! Cette rose qui dure longtemps, attire la bonne humeur et le positif... Photo non contractuelle, le contenant peut varier selon l'arrivage du moment.",
+        //         price: "13.50€",
+        //         photo: "transparenceRouge.jpg"
+        //     },
+        //     {
+        //         type: "rose-eternelle",
+        //         subtype: "Cartes",
+        //         title: "Bois",
+        //         description: "Une rose éternelle toute en simplicité sur une rondelle de bois...pour un petit cadeau naturel... Photo non contractuelle, la rondelle de bois et la déco peut varier selon l'arrivage et l'inspiration du jour...",
+        //         price: "16.00€",
+        //         photo: "bois.jpg"
+        //     },
+        //     {
+        //         type: "rose-eternelle",
+        //         title: "Valentine",
+        //         description: "Une façon originale d'offrir une rose éternelle !!! Valentine se décline en rouge ou en rose... et elle dansera dans votre salon!!! Photo non contractuelle",
+        //         price: "27.00€",
+        //         photo: "valentine.jpg"
+        //     },
+        //     {
+        //         type: "rose-eternelle",
+        //         title: "Cœur  Rouge",
+        //         description: "Un trés beau cœur !!! Pour exprimer tout l'amour que vous avez pour elle/lui !! Pour une belle preuve d'amitié... d'amour... Photo non contractuelle, le cœur sera réalisé dans le même esprit de couleur, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
+        //         price: "35.00€",
+        //         photo: "coeurRouge.jpg"
+        //     },
+        //     {
+        //         type: "hommage",
+        //         subtype: "fleurs-coupees",
+        //         title: "Flamboyant",
+        //         description: "Coussin allongé pour un dernier hommage rendu à la personne défunte. Il se compose ici de germinis, roses, chrysanthemes et fleurs de saison dans les tons chaud pour témoigner de votre soutien à la famille. Photo non contractuelle, la composition sera réalisée dans le même esprit de couleurs, et pourra quelque peu différer du visuel présenté qui a valeur indicative.",
+        //         price: "85.00€",
+        //         photo: "flamboyant.jpg"
+        //     },
+        //     {
+        //         type: "hommage",
+        //         subtype: "fleurs-coupees",
+        //         title: "Tendresse",
+        //         description: "Coussin rond plein de tendresse pour un dernier hommage à un proche, ami… Composé de fleurette variées dans les camaïeux de roses, ce coussin peut se décliner en différentes teintes, pour exprimer les regrets selon la personnalité du défunt. Photo non contractuelle.",
+        //         price: "100.00€",
+        //         photo: "tendresse.jpg"
+        //     },
+        //     {
+        //         type: "hommage",
+        //         subtype: "plantes",
+        //         title: "Mélancolie",
+        //         description: "Dernier hommage auprès de la famille de la personne défunte avec cette composition de plantes ...colorée, multicolore, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries multicolores, pouvant varier selon l'approvisionnement et la saison).",
+        //         price: "35.00€",
+        //         photo: "melancolie.jpg"
+        //     },
+        //     {
+        //         type: "hommage",
+        //         subtype: "plantes",
+        //         title: "Douleur",
+        //         description: "Témoignez toute votre tendresse auprès de la famille de la personne défunte avec cette composition de plantes pour un dernier hommage...dans les tons rose principalement, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries pouvant varier selon l'approvisionnement et la saison).",
+        //         price: "60.00€",
+        //         photo: "douleur.jpg"
+        //     },
+        //     {
+        //         type: "hommage",
+        //         subtype: "plantes",
+        //         title: "Chagrin",
+        //         description: "Témoignez de votre sympathie auprès de la famille de la personne défunte avec cette composition de plantes pour un dernier hommage...dans les tons rouge principalement, conçue pour durer en extérieur quelle que soit la saison. Photo non contractuelle (Plantes extérieures vertes et fleuries pouvant varier selon l'approvisionnement et la saison).",
+        //         price: "80.00€",
+        //         photo: "chagrin.jpg"
+        //     },
+        //     {
+        //         type: "accessoires",
+        //         subtype: "cartes",
+        //         title: "Carte condoleances",
+        //         description: "Pour témoigner sa tendresse, soutenir les famille endeuillées... une jolie carte, avec son enveloppe assortie Photo non contractuelle, cartes pouvant variées selon l'arrivage.",
+        //         price: "3.80€",
+        //         photo: "carteCondoleance.jpg"
+        //     },
+        //     {
+        //         type: "accessoires",
+        //         subtype: "cartes",
+        //         title: "Carte anniversaire",
+        //         description: "",
+        //         price: "3.80€",
+        //         photo: "cartes.jpg"
+        //     },
+        //     {
+        //         type: 'accessoires',
+        //         subtype: "bougie",
+        //         title: "Bambou",
+        //         description: "Et pourquoi pas ajouter une bougie à votre bouquet pour un cadeau plein de senteur !! Ou offrir une bougie en cadeau unique ou pour vous faire plaisir !! Craquez pour nos bougies parfumées ! Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 21h00 de combustion.(Senteur de bougie et plante pouvant varier selon l'arrivage du moment)(senteur : orange douce, canelle orange, cèdre, thé vert, violette, aloé véra, monoï, rose, fleur de tiaré, morito, pain d'épices, bois de oud, fleur de cerisier, géranium, fleur d'opium...) Bougie " + "bambou" + " - 80g - 21h de combustion. Les contenants en verre, lorsque les bougies sont terminées sont lavables à l'eau chaude et réutilisable !",
+        //         price: "11.00€",
+        //         photo: "bambou.jpg"
+        //     },
+        //     {
+        //         type: 'accessoires',
+        //         subtype: "bougie",
+        //         title: "Bougie POT METAL",
+        //         description: "Et pourquoi pas ajouter une bougie à votre bouquet pour un cadeau plein de senteur !! Ou offrir une bougie en cadeau unique ou pour vous faire plaisir !! Craquez pour nos bougies parfumées ! Cire 100% végétale, mèche en coton sans paraffine, fabrication artisanale...c'est parti pour 45h00 de combustion. (Senteur de bougie et plante pouvant varier selon l'arrivage du moment) (senteur : orange douce, canelle orange, cèdre, thé vert, violette, aloé véra, monoï, rose, fleur de tiaré, morito, pain d'épices, bois de oud, fleur de cerisier, géranium, fleur d'opium...) Bougie " + "pot métal" + " - 180g - 45h de combustion. Les contenants en verre, lorsque les bougies sont terminées sont lavables à l'eau chaude et réutilisable !",
+        //         price: "15.50€",
+        //         photo: "bougiePotMetal.jpg"
+        //     },
+        //     {
+        //         type: "fetes",
+        //         subtype: "conscrits",
+        //         title: "Verre à pied",
+        //         description: "Composition tout en finesse dans un verre à pied " + "conscrit" + " pour fêtez la décade. Déclinable en vert, jaune, orange, rouge... en fonction de l'age",
+        //         price: "20.00€",
+        //         photo: "pied.jpg"
+        //     },
+        //     {
+        //         type: "fetes",
+        //         subtype: "conscrits",
+        //         title: "Verre à orangeade",
+        //         description: "Offrez un verre " + "conscrit" + " personnalisable à la décade de chaque conscrit (ici 80 ans)",
+        //         price: "20.00€",
+        //         photo: "orangeade.jpg"
+        //     },
+        //     {
+        //         type: "fetes",
+        //         subtype: "conscrits",
+        //         title: "Mug",
+        //         description: "Offrez un souvenir  personnalisé « Honneur aux conscrits » garni de fleurs coupées pour une touche de couleur assortie à l’age du conscrit ou conscrite pour evoquer  la convivialité et la fete des classes et symboliser le changement de décade…",
+        //         price: "20.00€",
+        //         photo: "mug.jpg"
+        //     },
+        //     {
+        //         type: "fetes",
+        //         subtype: "noel",
+        //         title: "Amaryllis",
+        //         description: "Magnifique bouquet rouge et blanc avec ses superbes amaryllis ! Offrez ce bouquet féérique, il sera du plus bel effet sur la table !! Pour savourer les fêtes tout en douceur au coin du feu! Photo non contractuelle, les fleurs peuvent varier selon l'arrivage et le stock mais restera dans le même esprit.",
+        //         price: "50.00€",
+        //         photo: "amaryllis.jpg"
+        //     },
+        // ];
 
         let currentSubcategory = {};
 
@@ -1007,6 +1008,60 @@
                 return [];
             }
         }
+
+        // Remplace par ton URL de Google Sheet publié en CSV
+        const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRM3FyvgAM1caecOPmpgXE0Nar05sekYpija8F2tq0ZJYREmw-n_ZuGM8SxeAtSBxc_ZM8LfV6c4ZuG/pub?output=csv';
+        
+        function convertGoogleDriveLink(url) {
+            if (!url || !url.includes('drive.google.com')) {
+                return url; // Si ce n'est pas un lien Drive, on le retourne tel quel
+            }
+            
+            // Extraire l'ID du fichier
+            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+            }
+            
+            return url;
+        }
+
+        async function loadProductsFromGoogleSheet() {
+            try {
+                const response = await fetch(GOOGLE_SHEET_URL);
+                const csvText = await response.text();
+                
+                return new Promise((resolve) => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true,
+                        complete: function(results) {
+                            const products = results.data.map(row => ({
+                                type: row.type || '',
+                                subtype: row.subtype || '',
+                                title: row.title || '',
+                                description: row.description || '',
+                                fixPrice: row.fixPrice?.toUpperCase() === 'TRUE',
+                                price: row.price || '',
+                                photo: convertGoogleDriveLink(row.photo) || ''
+                            }));
+                            resolve(products);
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Erreur:', error);
+                return [];
+            }
+        }
+
+        // Utilisation
+        loadProductsFromGoogleSheet().then(products => {
+            console.log('Produits chargés:', products);
+            productsData.push(...products);
+            displayProducts();
+            // Ici tu peux utiliser tes produits pour afficher ton site
+        });
 
         // Afficher les produits par catégorie
         async function displayProducts() {
@@ -1027,10 +1082,10 @@
                 } else {
                     container.innerHTML = categoryProducts.map(product => `
                         <div class="product-card">
-                            <img src="photos/${product.photo}" alt="${product.title}" class="product-image" onerror="this.src='https://via.placeholder.com/600x400?text=Image+non+disponible'">
+                            <img src="${product.photo}" alt="${product.title}" class="product-image">
                             <div class="product-info">
                                 <h3 class="product-title">${product.title}</h3>
-                                <p class="product-price">${product['fixPrice'] === false ? 'À partir de ' : ''}${product.price}</p>
+                                <p class="product-price">${product['fixPrice'] === false ? 'À partir de ' : ''}${product.price} €</p>
                                 <p class="product-description">${product.description}</p>
                             </div>
                         </div>
@@ -1094,7 +1149,6 @@
                 'accessoires': 'all',
                 'fetes': 'all'
             };
-            displayProducts();
         });
     </script>
 </body>
