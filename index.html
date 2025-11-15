@@ -1036,7 +1036,12 @@
                 // Google retourne du JSONP, on extrait le JSON
                 const json = JSON.parse(text.substring(47).slice(0, -2));
                 
-                const products = json.table.rows.map(row => {
+                const products = json.table.rows.
+                filter((row) => {
+                    const cells = row.c;
+                    return cells[6]?.v === 'x'
+                })
+                map(row => {
                     const cells = row.c;
                     return {
                         type: cells[0]?.v || '',
