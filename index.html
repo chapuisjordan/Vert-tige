@@ -1037,10 +1037,11 @@
                 const json = JSON.parse(text.substring(47).slice(0, -2));
                 
                 const products = json.table.rows.
-                filter((row) => {
-                    const cells = row.c;
-                    return cells[6]?.v === 'x'
-                })
+                // filter((row) => {
+                //     const cells = row.c;
+                
+                //     return cells[7]?.v === 'x'
+                // })
                 map(row => {
                     const cells = row.c;
                     return {
