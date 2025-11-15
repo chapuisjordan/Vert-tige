@@ -734,7 +734,7 @@
         const productsData = [];
         // const productsData = [
         //     {
-        //         type: "b",
+        //         type: "fleurs",
         //         subtype: "bouquets",
         //         title: "Fashion",
         //         description: "Notre bouquet lumineux dans les tons fuschia et orange (avec une touche de parme selon l'arrivage) invite la joie dans la maison de votre destinataire ! Photo non contractuelle, le bouquet sera réalisé dans le même esprit de couleurs, et pourra quelque peu différé du visuel présenté qui a valeur indicative.",
@@ -865,7 +865,6 @@
         //     },
         //     {
         //         type: "rose-eternelle",
-        //         subtype: "Cartes",
         //         title: "Bois",
         //         description: "Une rose éternelle toute en simplicité sur une rondelle de bois...pour un petit cadeau naturel... Photo non contractuelle, la rondelle de bois et la déco peut varier selon l'arrivage et l'inspiration du jour...",
         //         price: "16.00€",
@@ -1010,7 +1009,10 @@
         }
 
         // Remplace par ton URL de Google Sheet publié en CSV
-        const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRM3FyvgAM1caecOPmpgXE0Nar05sekYpija8F2tq0ZJYREmw-n_ZuGM8SxeAtSBxc_ZM8LfV6c4ZuG/pub?output=csv';
+        const SHEET_ID = '1TlaV1PZo4wjbI5rf7hocVWKxqOSq09fI-cs29w23s2I';
+        const SHEET_NAME = 'Feuille 1'; // Change si ton onglet a un autre nom
+
+        const API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
         
         function convertGoogleDriveLink(url) {
             if (!url || !url.includes('drive.google.com')) {
@@ -1028,29 +1030,30 @@
 
         async function loadProductsFromGoogleSheet() {
             try {
-                const response = await fetch(GOOGLE_SHEET_URL);
-                const csvText = await response.text();
+                const response = await fetch(API_URL);
+                const text = await response.text();
                 
-                return new Promise((resolve) => {
-                    Papa.parse(csvText, {
-                        header: true,
-                        skipEmptyLines: true,
-                        complete: function(results) {
-                            const products = results.data.map(row => ({
-                                type: row.type || '',
-                                subtype: row.subtype || '',
-                                title: row.title || '',
-                                description: row.description || '',
-                                fixPrice: row.fixPrice?.toUpperCase() === 'TRUE',
-                                price: row.price || '',
-                                photo: convertGoogleDriveLink(row.photo) || ''
-                            }));
-                            resolve(products);
-                        }
-                    });
+                // Google retourne du JSONP, on extrait le JSON
+                const json = JSON.parse(text.substring(47).slice(0, -2));
+                
+                const products = json.table.rows.map(row => {
+                    const cells = row.c;
+                    return {
+                        type: cells[0]?.v || '',
+                        subtype: cells[1]?.v || '',
+                        title: cells[2]?.v || '',
+                        description: cells[3]?.v || '',
+                        fixPrice: cells[4]?.v === true || cells[4]?.v === 'TRUE',
+                        price: cells[5]?.v || '',
+                        photo: convertGoogleDriveLink(cells[6]?.v || '')
+                    };
                 });
+                
+                console.log('Produits chargés:', products);
+                return products;
+                
             } catch (error) {
-                console.error('Erreur:', error);
+                console.error('Erreur lors du chargement:', error);
                 return [];
             }
         }
