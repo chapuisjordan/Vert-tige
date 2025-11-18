@@ -1037,11 +1037,6 @@
                 const json = JSON.parse(text.substring(47).slice(0, -2));
                 
                 const products = json.table.rows.
-                // filter((row) => {
-                //     const cells = row.c;
-                
-                //     return cells[7]?.v === 'x'
-                // })
                 map(row => {
                     const cells = row.c;
                     return {
@@ -1051,9 +1046,11 @@
                         description: cells[3]?.v || '',
                         fixPrice: cells[4]?.v === true || cells[4]?.v === 'TRUE',
                         price: cells[5]?.v || '',
-                        photo: convertGoogleDriveLink(cells[6]?.v || '')
+                        photo: convertGoogleDriveLink(cells[6]?.v || ''),
+                        display: cells[7]?.v || '',
                     };
-                });
+                })
+                .filter((el) => el.display !== 'x');
                 
                 console.log('Produits chargés:', products);
                 return products;
@@ -1067,6 +1064,7 @@
         // Utilisation
         loadProductsFromGoogleSheet().then(products => {
             console.log('Produits chargés:', products);
+            console.log('PRODUCTS : ', products);
             productsData.push(...products);
             displayProducts();
             // Ici tu peux utiliser tes produits pour afficher ton site
