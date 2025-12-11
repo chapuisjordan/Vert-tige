@@ -429,76 +429,118 @@
 
         /* Section Mariage */
         .marriage-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .marriage-card {
+        .marriage-intro {
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .marriage-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .marriage-content {
-            padding: 2.5rem;
+            border-radius: 20px;
+            padding: 3rem;
             text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .marriage-content h3 {
-            font-size: 1.8rem;
-            color: #2d5a3d;
-            margin-bottom: 1rem;
+        .marriage-intro h3 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
-        .marriage-content p {
-            font-size: 1.1rem;
-            color: #555;
-            line-height: 1.6;
+        .marriage-intro p {
+            font-size: 1.2rem;
+            color: #5a6c7d;
+            line-height: 1.8;
             margin-bottom: 1rem;
         }
 
         .marriage-cta {
             font-weight: 600;
-            color: #2d5a3d;
+            color: #e74c3c;
             margin-top: 1.5rem;
+            font-size: 1.1rem;
         }
 
         .marriage-button {
             display: inline-block;
             margin-top: 1.5rem;
-            padding: 0.8rem 2rem;
-            background: #2d5a3d;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #e74c3c 0%, #8e44ad 100%);
             color: white;
             text-decoration: none;
-            border-radius: 25px;
-            transition: background 0.3s;
+            border-radius: 30px;
+            transition: all 0.3s ease;
             font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
 
         .marriage-button:hover {
-            background: #1f3d29;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        .marriage-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .marriage-gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            aspect-ratio: 4/3;
+        }
+
+        .marriage-gallery-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .marriage-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .marriage-gallery-item:hover img {
+            transform: scale(1.1);
         }
 
         @media (max-width: 768px) {
-            .marriage-image {
-                height: 250px;
+            .marriage-intro {
+                padding: 2rem;
             }
             
-            .marriage-content {
-                padding: 1.5rem;
+            .marriage-intro h3 {
+                font-size: 1.6rem;
             }
-            
-            .marriage-content h3 {
-                font-size: 1.4rem;
+
+            .marriage-intro p {
+                font-size: 1rem;
+            }
+
+            .marriage-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
         }
+
+        @media (max-width: 480px) {
+            .marriage-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .burger-menu {
@@ -686,13 +728,34 @@
         <section id="mariage" class="section">
             <h2 class="category-title">Mariage</h2>
             <div class="marriage-container">
-                <div class="marriage-card">
-                    <img src="photos/orchidee.jpg" alt="Décoration florale mariage" class="marriage-image">
-                    <div class="marriage-content">
-                        <h3>Créons ensemble votre décoration florale</h3>
-                        <p>Chaque mariage est unique. Nous concevons des arrangements floraux sur-mesure pour sublimer votre jour J.</p>
-                        <p class="marriage-cta">Pour un devis personnalisé et détaillé, contactez-nous directement en boutique ou par téléphone.</p>
-                        <a onclick="showSection('contact')" class="marriage-button">Nous contacter</a>
+                <div class="marriage-gallery">
+                    <div class="marriage-gallery-item">
+                        <img src="photos/mariage1.jpeg" alt="Décoration florale mariage 1">
+                    </div>
+                    <div class="marriage-gallery-item">
+                        <img src="photos/mariage2.jpeg" alt="Décoration florale mariage 2">
+                    </div>
+                    <div class="marriage-gallery-item">
+                        <img src="photos/mariage3.jpeg" alt="Décoration florale mariage 3">
+                    </div>
+                </div>
+
+                <div class="marriage-intro">
+                    <h3>Créons ensemble votre décoration florale</h3>
+                    <p>Chaque mariage est unique. Nous concevons des arrangements floraux sur-mesure pour sublimer votre jour J.</p>
+                    <p class="marriage-cta">Pour un devis personnalisé et détaillé, contactez-nous directement en boutique ou par téléphone.</p>
+                    <a onclick="showSection('contact')" class="marriage-button">Nous contacter</a>
+                </div>
+
+                <div class="marriage-gallery">
+                    <div class="marriage-gallery-item">
+                        <img src="photos/mariage4.jpeg" alt="Décoration florale mariage 4">
+                    </div>
+                    <div class="marriage-gallery-item">
+                        <img src="photos/mariage5.jpeg" alt="Décoration florale mariage 5">
+                    </div>
+                    <div class="marriage-gallery-item">
+                        <img src="photos/mariage6.png" alt="Décoration florale mariage 6">
                     </div>
                 </div>
             </div>
